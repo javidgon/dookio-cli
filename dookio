@@ -20,13 +20,20 @@ echo "*************************************"
 echo "*       Dookio apps deployed"
 echo "*************************************"
 curl -XGET $DOOKIO_SERVER_ADDRESS:8000/apps
+printf "\nDone.\n"
 fi
 
 if [[ $1 == 'containers' ]]
 then
-
-echo "*************************************"
-echo "*       Dookio containers"
-echo "*************************************"
-curl -XGET $DOOKIO_SERVER_ADDRESS:8000/containers
+   if [ "$#" != "3" ]; then 
+       echo "You need to provide both the <user> and <app>. e.g dookio containers git apache"
+   else
+       echo "*************************************"
+       echo "*       Dookio containers"
+       echo "*************************************"
+       echo "User: $2"
+       echo "App: $3"
+       curl -XGET "$DOOKIO_SERVER_ADDRESS:8000/containers?user=$2&repo=$3"
+       printf "\nDone.\n"
+   fi
 fi
