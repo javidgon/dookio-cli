@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [[ $1 == '' ]]
+then
+    echo "Please specify a command (e.g apps, containers)"
+fi
+
+if [[ $1 == 'help' ]]
+then
+
+echo "Available commands:"
+echo "--> apps: List all the deployed apps"
+echo "--> containers: List all the containers associated to each app"
+fi
+
+if [[ $1 == 'apps' ]]
+then
+
+echo "*************************************"
+echo "*       Dookio apps deployed"
+echo "*************************************"
+curl -XGET $DOOKIO_SERVER_ADDRESS:8000/apps
+fi
+
+if [[ $1 == 'containers' ]]
+then
+
+echo "*************************************"
+echo "*       Dookio containers"
+echo "*************************************"
+curl -XGET $DOOKIO_SERVER_ADDRESS:8000/containers
+fi
