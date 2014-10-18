@@ -1,11 +1,6 @@
 #!/bin/bash
 
-if [[ $1 == '' ]]
-then
-    echo "Please specify a command (e.g apps, containers)"
-fi
-
-if [[ $1 == 'help' ]]
+if [[ '$1' == 'help' ]] || [[ '$1' == '' ]]
 then
 
 echo "Available commands:"
@@ -25,15 +20,63 @@ fi
 
 if [[ $1 == 'containers' ]]
 then
-   if [ "$#" != "3" ]; then 
-       echo "You need to provide both the <user> and <app>. e.g dookio containers git apache"
+   if [ "$#" != "2" ]; then 
+       echo "You need to provide both the <user> and <app>. e.g dookio containers git/apache"
    else
+       # Extract User and App from input.
+       INPUT=$2
+       arrIN=(${INPUT//// })
+
        echo "*************************************"
        echo "*       Dookio containers"
        echo "*************************************"
-       echo "User: $2"
-       echo "App: $3"
-       curl -XGET "$DOOKIO_SERVER_ADDRESS:8000/containers?user=$2&repo=$3"
+       echo "User: ${arrIN[0]}"
+       echo "App: ${arrIN[1]}"
+       curl -XGET "$DOOKIO_SERVER_ADDRESS:8000/containers?action=get&user=${arrIN[0]}&repo=${arrIN[1]}"
+       printf "\nDone.\n"
+   fi
+fi
+
+if [[ $1 == 'stop' ]]
+then
+   if [ "$#" != "2" ]; then 
+       echo "You need to provide both the <user> and <app>. e.g dookio stop git/apache"
+   else
+       # Extract User and App from input.
+       INPUT=$2
+       arrIN=(${INPUT//// })
+
+       echo "*************************************"
+       echo "*       Dookio containers"
+       echo "*************************************"
+       echo "User: ${arrIN[0]}"
+       echo "App: ${arrIN[1]}"
+       curl -XGET "$DOOKIO_SERVER_ADDRESS:8000/containers?action=stop&user=${arrIN[0]}&repo=${arrIN[1]}"
+       printf "\nDone.\n"
+   fi
+fi
+
+# Extract Action and number of workers from input.
+INPUT=$1
+arrScale=(${INPUT//=/ })
+
+if [[ ${arrScale[0]} == 'scale' ]]
+then
+   if [ "$#" != "2" ]; then 
+       echo "You need to provide both the <user> and <app>. e.g dookio scale=5 git/apache"
+   else
+
+       # Extract User and App from input.
+       INPUT=$2
+       arrIN=(${INPUT//// })
+
+       echo "*************************************"
+       echo "*       Dookio containers"
+       echo "*************************************"
+       echo "User: ${arrIN[0]}"
+       echo "App: ${arrIN[1]}"
+       echo "Scaling to ${arrScale[1]} containers..."
+       curl -XGET "$DOOKIO_SERVER_ADDRESS:8000/scale?multiplicator=${arrScale[1]}&user=${arrIN[0]}&repo=${arrIN[1]}"
        printf "\nDone.\n"
    fi
 fi
