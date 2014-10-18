@@ -22,6 +22,18 @@ App: apache
 [{"node": "http://123.123.123.123", "containers": ["a2ac34cc437a125125d8a0ef6d11e38612f30d5480a6a7b17dd66633fc3a27d0", "eae17e29a17b8578cf2f89522a1035b3dd504761b6461ff1f1c29e1339337b15"]}]
 Done.
 
+$ dookio scale=5 git/apache
+
+*************************************
+*       Dookio containers
+*************************************
+User: git
+App: apache
+Scaling to 5 containers...
+App successfully deployed!
+
+Done.
+
 $ dookio stop git/apache
 
 *************************************
@@ -33,17 +45,6 @@ Stopping containers...
 [{"node": "http://0.0.0.0", "containers": []}]
 Done.
 
-$ dookio scale=5 git/apache
-
-*************************************
-*       Dookio containers
-*************************************
-User: git
-App: apache
-Scaling to 5 containers...
-The app can not scale unless is running!
-
-Done.
 ```
 
 ## 1. Installation
