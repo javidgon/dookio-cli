@@ -15,9 +15,9 @@ if [[ $1 == 'apps' ]]
 then
 
 echo "*************************************"
-echo "*       Dookio apps deployed"
+echo "*            Dookio-cli"
 echo "*************************************"
-printf "\nList of apps:\n"
+printf "\n---> List of apps:\n\n"
 curl -XGET $DOOKIO_SERVER_ADDRESS:8000/apps
 printf "\nDone.\n"
 fi
@@ -32,10 +32,11 @@ then
        arrIN=(${INPUT//// })
 
        echo "*************************************"
-       echo "*       Dookio containers"
+       echo "*            Dookio-cli"
        echo "*************************************"
        echo "User: ${arrIN[0]}"
        echo "App: ${arrIN[1]}"
+       printf "\n---> List of containers:\n\n"
        curl -XGET "$DOOKIO_SERVER_ADDRESS:8000/containers?action=get&user=${arrIN[0]}&repo=${arrIN[1]}"
        printf "\nDone.\n"
    fi
@@ -51,11 +52,11 @@ then
        arrIN=(${INPUT//// })
 
        echo "*************************************"
-       echo "*       Dookio containers"
+       echo "*            Dookio-cli"
        echo "*************************************"
        echo "User: ${arrIN[0]}"
        echo "App: ${arrIN[1]}"
-       echo "Stopping containers..."
+       printf "\n---> Stopping app:\n\n"
        curl -XGET "$DOOKIO_SERVER_ADDRESS:8000/containers?action=stop&user=${arrIN[0]}&repo=${arrIN[1]}"
        printf "\nDone.\n"
    fi
@@ -71,11 +72,11 @@ then
        arrIN=(${INPUT//// })
 
        echo "*************************************"
-       echo "*       Dookio containers"
+       echo "*            Dookio-cli"
        echo "*************************************"
        echo "User: ${arrIN[0]}"
        echo "App: ${arrIN[1]}"
-       echo "Start container..."
+       printf "\n---> Starting app:\n\n"
        curl -XGET "$DOOKIO_SERVER_ADDRESS:8000/containers?action=start&user=${arrIN[0]}&repo=${arrIN[1]}"
        printf "\nDone.\n"
    fi
@@ -96,11 +97,11 @@ then
        arrIN=(${INPUT//// })
 
        echo "*************************************"
-       echo "*       Dookio containers"
+       echo "*            Dookio-cli"
        echo "*************************************"
        echo "User: ${arrIN[0]}"
        echo "App: ${arrIN[1]}"
-       echo "Scaling to ${arrScale[1]} containers..."
+       printf "\n---> Scaling to ${arrScale[1]} containers:\n\n"
        curl -XGET "$DOOKIO_SERVER_ADDRESS:8000/scale?multiplicator=${arrScale[1]}&user=${arrIN[0]}&repo=${arrIN[1]}"
        printf "\nDone.\n"
    fi
