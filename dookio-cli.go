@@ -56,18 +56,22 @@ func parseCommand(rawCommand string, command *Command, request *Request) {
 		command.Magnitude = info[1]
 		request.Params.Add("multiplicator", command.Magnitude)
 	} else {
-		command.Name = "containers"
-		request.Params.Add("action", rawCommand)
+		if rawCommand != "apps" && rawCommand != "containers" {
+			command.Name = "containers"
+			request.Params.Add("action", rawCommand)
+		} else {
+			command.Name = rawCommand
+		}
 	}
 	request.Path = command.Name
 }
 
 func contactWithDookioServer(command *Command, app *App, server *Server, request *Request) ([]byte, error) {
-	schema := url.URL{Scheme: "http",
+	req := url.URL{Scheme: "http",
 		Host:     server.Address + ":" + server.Port,
 		Path:     request.Path,
 		RawQuery: request.Params.Encode()}
-	response, err := http.Get(schema.String())
+	response, err := http.Get(req.String())
 	if err != nil {
 		return nil, err
 	}
