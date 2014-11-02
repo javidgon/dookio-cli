@@ -14,72 +14,24 @@ Dookio tooltbelt with some interesting features as `listing`, `starting`, `stopp
 
 ## Examples:
 
-* $ dookio apps
+* $ ./dookio-cli apps
 
 ```
-*************************************
-*           Dookio-cli
-*************************************
----> List of deployed apps:
+----> Dookio cli: Running the 'apps' command.
+----> Dookio cli: Connecting with '123.123.123.123:8000...'
 
 --> apache.git.blabla.com (replicated in 2 containers)
 Done.
 ```
 
-* $ dookio containers git/apache
+* $ ./dookio-cli containers git/apache
 
 ```
-*************************************
-*           Dookio-cli
-*************************************
-User: git
-App: apache
----> List of containers:
+----> Dookio cli: Running the 'containers' command.
+----> Dookio cli: For the 'git/portfolio' app.
+----> Dookio cli: Connecting with '123.123.123.123:8000...'
 
 [{"node": "http://0.0.0.0", "containers": [{"Status": "Up 2 hours", "Created": 1413832159, "Image": "git/apache:latest", "Id": "0fe2f69467e23f019f42992b7d740f9f8609382bd085c5c168c0bd912297b470", "Command": "/bin/sh -c 'uwsgi --http 0.0.0.0:80 --pythonpath /tmp/apache --static-map /static=/tmp/apache/static_media/ --module apache.wsgi'", "Names": ["/git_apache_4567"], "Ports": [{"PublicPort": 4567, "IP": "0.0.0.0", "Type": "tcp", "PrivatePort": 80}]}]}]
-Done.
-```
-
-* $ dookio start git/apache
-
-```
-*************************************
-*           Dookio-cli
-*************************************
-User: git
-App: apache
----> Starting container...
-
-[{"node": "http://0.0.0.0", "containers": [{"Status": "Up 2 hours", "Created": 1413832159, "Image": "git/apache:latest", "Id": "0fe2f69467e23f019f42992b7d740f9f8609382bd085c5c168c0bd912297b470", "Command": "/bin/sh -c 'uwsgi --http 0.0.0.0:80 --pythonpath /tmp/apache --static-map /static=/tmp/apache/static_media/ --module apache.wsgi'", "Names": ["/git_apache_4567"], "Ports": [{"PublicPort": 4567, "IP": "0.0.0.0", "Type": "tcp", "PrivatePort": 80}]}]}]
-Done.
-```
-
-* $ dookio stop git/apache
-
-```
-*************************************
-*           Dookio-cli
-*************************************
-User: git
-App: apache
----> Stopping containers...
-
-[{"node": "http://0.0.0.0", "containers": []}]
-Done.
-```
-
-* $ dookio scale=5 git/apache
-
-```
-*************************************
-*           Dookio-cli
-*************************************
-User: git
-App: apache
----> Scaling to 5 containers...
-
-App successfully deployed!
-
 Done.
 ```
 
@@ -88,19 +40,7 @@ Done.
 Export the `DOOKIO_SERVER_ADDRESS` (you might want to add this line to the `.bashrc` file)
 
 ```
-export DOOKIO_SERVER_ADDRESS="http://127.127.127.127"
-```
-
-Then, make the script executable:
-
-```
-sudo chmod +x dookio
-```
-
-And finally make it visible to your PATH, for example:
-
-```
-sudo mv dookio /usr/local/sbin/
+export DOOKIO_SERVER_ADDRESS="123.123.123.123"
 ```
 
 ## 2. Contribute

@@ -85,7 +85,7 @@ func contactWithDookioServer(command *Command, app *App, server *Server, request
 func main() {
 	server := &Server{Address: os.Getenv("DOOKIO_SERVER_ADDRESS"), Port: "8000"}
 	if server.Address == "" {
-		fmt.Println("Please, set first the DOOKIO_SERVER_ADDRESS env var")
+		fmt.Println("Please, set first the DOOKIO_SERVER_ADDRESS env var. e.g DOOKIO_SERVER_ADDRESS=123.123.123.123")
 	} else if len(os.Args) < 2 || os.Args[1] == "help" {
 		showHelp()
 	} else {
@@ -94,20 +94,19 @@ func main() {
 		request := &Request{Params: url.Values{}}
 		rawCommand := os.Args[1]
 		parseCommand(rawCommand, command, request)
-		fmt.Printf("Dookio cli: Running the '%s' command.\n", command.Name)
+		fmt.Printf("----> Dookio cli: Running the '%s' command.\n", command.Name)
 		if len(os.Args) > 2 {
 			rawApp := os.Args[2]
 			parseApp(rawApp, app, request)
-			fmt.Printf("Dookio cli: For the '%s/%s' app.\n", app.User, app.Repo)
+			fmt.Printf("----> Dookio cli: For the '%s/%s' app.\n", app.User, app.Repo)
 		}
-		fmt.Printf("Dookio cli: Connecting with '%s:%s...'\n", server.Address, server.Port)
+		fmt.Printf("----> Dookio cli: Connecting with '%s:%s...'\n", server.Address, server.Port)
 		content, err := contactWithDookioServer(command, app, server, request)
 		if err != nil {
 			fmt.Println(err.Error())
 			fmt.Printf("Request: %s:%s\n", request.Path, request.Params.Encode())
 		} else {
 			fmt.Println(string(content))
-			fmt.Printf("Request: %s/%s\n", request.Path, request.Params.Encode())
 		}
 		fmt.Println("Done.")
 	}
